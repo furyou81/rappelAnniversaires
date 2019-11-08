@@ -13,7 +13,7 @@ const WelcomeHandler = {
 
     return handlerInput.responseBuilder
       .speak(speechOutput)
-      .withSimpleCard(constants.SKILL_NAME, speechOutput)
+      .withSimpleCard(constants.SKILL_NAME, "Bonjour, bienveue dans Rappel Anniversaires:)")
       .withShouldEndSession(false)
       .getResponse();
   },

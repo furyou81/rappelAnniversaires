@@ -56,9 +56,7 @@ const DeleteBirthdayHandler = {
 };
 
 const succesMessages = [
-  `${helpers.interjection(
-    "C'est noté"
-  )}, l'anniversaire de friend a bien été supprimé`
+  `L'anniversaire de friend a bien été supprimé`
 ];
 
 const errorMessages = [
