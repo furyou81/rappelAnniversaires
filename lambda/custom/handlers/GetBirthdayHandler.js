@@ -34,15 +34,15 @@ const GetBirthdayHandler = {
         .replace("birthdate", dateHelpers.getDayAndMonthFromDate(got[0].birthdate)).replace("number", dateHelpers.getNbOfDaysToNextBirthday(got[0].birthdate));
       return handlerInput.responseBuilder
         .speak(speechOutput)
-        .withSimpleCard(constants.SKILL_NAME, speechOutput)
-        .withShouldEndSession(false)
+        .withSimpleCard(`Anniversaire de ${friend}:`, dateHelpers.getTextDate(got[0].birthdate))
+        .withShouldEndSession(true)
         .getResponse();
     } else {
         const errorMessage = "Aucun ami s'appelant friend n'a été trouvé".replace("friend", friend);
         return handlerInput.responseBuilder
         .speak(errorMessage)
         .withSimpleCard(constants.SKILL_NAME, errorMessage)
-        .withShouldEndSession(false)
+        .withShouldEndSession(true)
         .getResponse();
     }
   }

@@ -71,7 +71,7 @@ const ErrorHandler = {
   handle(handlerInput, error) {
     const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
     return handlerInput.responseBuilder
-      .speak('ERROR_MESSAGE')
+      .speak("Une erreur s'est produite")
       .reprompt('ERROR_MESSAGE')
       .getResponse();
   },

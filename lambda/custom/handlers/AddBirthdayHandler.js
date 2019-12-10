@@ -14,7 +14,6 @@ const AddBirthdayHandler = {
   async handle(handlerInput) {
     const request = handlerInput.requestEnvelope.request;
     const userId = handlerInput.requestEnvelope.session.user.userId;
-    console.log("TEST");
     const friend =
       request.intent.slots.friend != null
         ? request.intent.slots.friend.value
@@ -34,7 +33,7 @@ const AddBirthdayHandler = {
     const contactInDb = await dynamoHelpers.findContactInDb(userId, friend);
     if (contactInDb.length > 0) { // ALREADY ADDED SAME NAME
       speechOutput = helpers.getRandomMessage(alreadyExistMessages).replace("friend", friend).replace("birthdate", dateHelpers.getDayAndMonthFromDate(contactInDb[0].birthdate));
-      card = speechOutput;
+      card = helpers.getRandomMessage(alreadyExistMessages).replace("friend", friend).replace("le birthdate", dateHelpers.getTextDate(contactInDb[0].birthdate));
     } else {
       const item = {
         userId: handlerInput.requestEnvelope.session.user.userId,
@@ -47,8 +46,7 @@ const AddBirthdayHandler = {
           .getRandomMessage(succesMessages)
           .replace("friend", friend)
           .replace("birthdate", dateHelpers.getDayAndMonthFromDate(birthdate));
-        card = "Vous venez d'ajouter friend qui est né le birthdate".replace("friend", friend).replace("birthdate", dateHelpers.getDayAndMonthFromDate(contactInDb[0].birthdate));
-      
+        card = "friend a bien été ajouté".replace("friend", friend);
       } else { // ERROR ADDING
         speechOutput = helpers.getRandomMessage(errorMessages);
         card = speechOutput;
@@ -58,7 +56,7 @@ const AddBirthdayHandler = {
     return handlerInput.responseBuilder
         .speak(speechOutput)
         .withSimpleCard(constants.SKILL_NAME, card)
-        .withShouldEndSession(false)
+        .withShouldEndSession(true)
         .getResponse();
   }
 };
